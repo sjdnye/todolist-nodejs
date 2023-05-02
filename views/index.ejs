@@ -14,9 +14,39 @@
                 </div>
             </form>
             <div class="mx-auto w-50 mb-3 alert alert-primary row">
-                <p class="d-inline col">کارهای انجام شده : <span class="badge badge-success badge-pill">0<!-- CompletedTodos --></span></p>
-                <p class="d-inline col">کارهای باقی مانده امروز : <span class="badge badge-warning badge-pill">0<!-- RemainingTodos --></span></p>
+                <p class="d-inline col">کارهای انجام شده : <span class="badge badge-success badge-pill"><%= completedTodos %></span></p>
+                <p class="d-inline col">کارهای باقی مانده امروز : <span class="badge badge-warning badge-pill"><%= remainingTodos %></span></p>
             </div>
+            <% if(todos.length > 0) { %>
+                <ul class="list-unstyled" id="todo">
+                    <% for(let todo of todos){ %>
+                        <li>
+                            <div class="alert <%= todo.completed ? 'alert-success' : 'alert-secondary'  %>">
+                                <% if(todo.completed){ %>
+                                    <del><%= todo.text %></del>
+                                    <a href="/admin/delete-todo/<%= todo.id %>" class="close fa fa-trash" style="color:red"></a>
+                                    <% } else { %>
+                                        <%= todo.text %>
+                                            <a href="/admin/delete-todo/<%= todo.id %>" class="close fa fa-trash" style="color:red"></a>
+                                            <a href="/admin/complete-todo/ <%= todo.id %>" class="close fa fa-check-square mr-2" style="color:green"></a>
+                                            <% } %>
+
+                            </div>
+                        </li>
+
+                        <% } %>
+                </ul>
+
+                <% } else { %>
+                    <div class="alert alert-warning w-50 mx-auto" role="alert">
+                        <h4 class="alert-heading">There is no todo for today
+                            <p>You can add your daily todo to list</p>
+                            <hr>
+                            <p class="mh-0"><span class="fa fa-heart" style="color:red"></span> Node-js Todo list app </span>
+                            </p>
+                        </h4>
+                    </div>
+                    <% } %>
         </div>
     </body>
 
