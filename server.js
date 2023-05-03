@@ -1,8 +1,8 @@
-const path = require('path');
-
 const express = require('express');
 const bodyParser = require('body-parser');
-const sequelize = require('./utils/database');
+
+// const sequelize = require('./utils/database');
+const path = require('path');
 
 const app = express();
 
@@ -36,10 +36,16 @@ app.use('/admin', adminRoutes);
 app.use(errorController.get404)
 
 
+//-- -- -- -- -- -- -- -- --mysql-- -- -- -- -- -- -- -- -- -- -- -- -- -
+// sequelize.sync()
+//     .then(
+//         result => {
+//             app.listen(3000, () => console.log("Server is running..."));
+//         }
+//     ).catch(err => console.log(err));
 
-sequelize.sync()
-    .then(
-        result => {
-            app.listen(3000, () => console.log("Server is running..."));
-        }
-    ).catch(err => console.log(err));
+// ------------------------ mogodb ------------------------
+
+require('./utils/database');
+
+app.listen(3000, () => console.log("Server is running..."));

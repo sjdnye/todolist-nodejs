@@ -1,6 +1,6 @@
 const Todo = require('../model/todo');
 
-const todoUtils = require('../utils/todos');
+// const todoUtils = require('../utils/todos');
 
 exports.getIndex = async(req, res) => {
 
@@ -39,13 +39,29 @@ exports.getIndex = async(req, res) => {
 
     //     });
     // ---------------------------- async & await approach -------------------------
+    //     try {
+    //         const completedTodos = await Todo.count({
+    //             where: {
+    //                 completed: true
+    //             }
+    //         });
+    //         const todos = await Todo.findAll();
+    //         res.render('index', {
+    //             pageTitle: "کار های روزمره",
+    //             todos,
+    //             completedTodos: completedTodos,
+    //             remainingTodos: todos.length - completedTodos,
+    //         });
+
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // };
+
+    // ------------------------------- mogodb --------------------
     try {
-        const completedTodos = await Todo.count({
-            where: {
-                completed: true
-            }
-        });
-        const todos = await Todo.findAll();
+        const completedTodos = await Todo.countDocuments({ completed: true });
+        const todos = await Todo.find();
         res.render('index', {
             pageTitle: "کار های روزمره",
             todos,

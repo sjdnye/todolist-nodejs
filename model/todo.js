@@ -117,26 +117,48 @@
 
 //-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- - database approach-- -- -- -- -- --
 
-const { DataTypes } = require('sequelize');
+// const { DataTypes } = require('sequelize');
 
-const sequelize = require('../utils/database');
+// const sequelize = require('../utils/database');
 
-const Todo = sequelize.define("Todo", {
-    id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
-        allowNull: false,
-    },
+// const Todo = sequelize.define("Todo", {
+//     id: {
+//         type: DataTypes.INTEGER,
+//         autoIncrement: true,
+//         primaryKey: true,
+//         allowNull: false,
+//     },
+//     text: {
+//         type: DataTypes.STRING,
+//         allowNull: false
+//     },
+//     completed: {
+//         type: DataTypes.BOOLEAN,
+//         allowNull: true, // default is true
+//         defaultValue: false,
+//     }
+// })
+
+// module.exports = Todo;
+
+// ---------------------------- mongodb -----------------------------
+const mongoose = require('mongoose');
+
+const todoSchema = new mongoose.Schema({
     text: {
-        type: DataTypes.STRING,
-        allowNull: false
+        type: String,
+        required: true,
+        trim: true,
+        minlength: 3,
+        max: 255
     },
     completed: {
-        type: DataTypes.BOOLEAN,
-        allowNull: true, // default is true
-        defaultValue: false,
+        type: Boolean,
+        required: false,
+        default: false
     }
-})
+});
+
+const Todo = mongoose.model("Todo", todoSchema)
 
 module.exports = Todo;
