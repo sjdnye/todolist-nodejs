@@ -7,6 +7,7 @@ const app = express();
 
 const adminRoutes = require('./routes/admin');
 const indexRoutes = require('./routes/index');
+const errorController = require('./controllers/error');
 
 
 
@@ -29,5 +30,8 @@ app.use(indexRoutes)
 app.use('/admin', adminRoutes);
 
 //End of routes
+
+//404
+app.use(errorController.get404)
 
 app.listen(3000, () => console.log("Server is running..."));
